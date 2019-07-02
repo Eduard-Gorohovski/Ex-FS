@@ -1,0 +1,10 @@
+note over browser:
+Event handler catches the submit
+Adds the new note to an array
+end note
+
+note over browser:
+Renders the notes list on the page
+end note
+
+browser->server: HTTP POST data type JSON to https://fullstack-exampleapp.herokuapp.com/new_note_spa
