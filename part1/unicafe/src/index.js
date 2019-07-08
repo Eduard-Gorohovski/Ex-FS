@@ -29,9 +29,10 @@ const DisplayAttribute = (props) => {
 
 const Statistics = ({good, neutral, bad}) => {
     const all=good+neutral+bad
+    if(all==0) return (<><h2>No feedback gien</h2></>)
+
     return(
         <>
-            <Header headline='statistics' />
             <DisplayAttribute attribute="good" result={good} />
             <DisplayAttribute attribute="neutral" result={neutral} />
             <DisplayAttribute attribute="bad" result={bad} />
@@ -54,6 +55,7 @@ const App = () => {
         <Button function={()=>{setGood(good+1)}} text='good'/>
         <Button function={()=>{setNeutral(neutral+1)}} text='neutral'/>
         <Button function={()=>{setBad(bad+1)}} text='bad'/>
+        <Header headline='statistics' />
         <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
