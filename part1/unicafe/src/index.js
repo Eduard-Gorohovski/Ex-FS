@@ -14,32 +14,33 @@ const Button = (props) => {
         <button onClick={props.function}>
             {props.text}
         </button>
-
     )
 }
 
-
 const DisplayAttribute = (props) => {
     return(
-        <>
-            <p>{props.attribute} {props.result}</p>
-        </>
+        <tr>
+            <td>{props.attribute} </td>
+            <td>{props.result}</td>
+        </tr>
     )
 }
 
 const Statistics = ({good, neutral, bad}) => {
     const all=good+neutral+bad
-    if(all==0) return (<><h2>No feedback gien</h2></>)
+    if(all===0) return (<><h2>No feedback given</h2></>)
 
     return(
-        <>
-            <DisplayAttribute attribute="good" result={good} />
-            <DisplayAttribute attribute="neutral" result={neutral} />
-            <DisplayAttribute attribute="bad" result={bad} />
-            <DisplayAttribute attribute="all" result={all} />
-            <DisplayAttribute attribute="average" result={(good-bad)/all} />
-            <DisplayAttribute attribute="positive" result={100*(good)/all + " %"} />
-        </>
+        <table>
+            <tbody>
+                <DisplayAttribute attribute="good" result={good} />
+                <DisplayAttribute attribute="neutral" result={neutral} />
+                <DisplayAttribute attribute="bad" result={bad} />
+                <DisplayAttribute attribute="all" result={all} />
+                <DisplayAttribute attribute="average" result={(good-bad)/all} />
+                <DisplayAttribute attribute="positive" result={100*(good)/all + " %"} />
+            </tbody>
+        </table>
     )
 }
 
