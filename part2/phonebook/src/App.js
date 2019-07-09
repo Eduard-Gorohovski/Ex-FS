@@ -1,40 +1,51 @@
 import React, { useState } from 'react'
-import Person from './components/Person'
+import DisplayPhonebook from './components/DisplayPhonebook'
+import PersonForm from './components/PersonForm'
+
 
 const App = () => {
-    let i=0
+    
   const [ persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas', number: '' }
   ]) 
-  const [ newName, setNewName ] = useState('')
+  const [ newPerson, setNewPerson ] = useState({name: '', number: ''})
+  const [filter, setFilter] = useState('')
 
   const addPerson = (event) =>{
     event.preventDefault()
-    setPersons(persons.concat({ name: newName}))
-    setNewName('')
+    if(persons.find( (person) => person.name === newPerson.name)){
+        window.alert(`${newPerson.name} is already added to phonebook`)
+    }
+    else{
+        setPersons(persons.concat({ name: newPerson.name, number: newPerson.number}))
+        setNewPerson({name: '', number: ''})
+    }
+  }
+
+  const handleFilterChange = (event) =>{
+    setFilter(event.target.value)
   }
 
   const handleNameChange = (event) => {
-    setNewName(event.target.value)
+    setNewPerson({name: event.target.value, number: newPerson.number})
   }
 
+  const handleNumberChnage = (event) => {
+    setNewPerson({name: newPerson.name, number: event.target.value})
+  }
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <form onSubmit={addPerson}>
-        <div>
-          name: <input 
-            value={newName}
-            onChange={handleNameChange}
-          />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      {persons.map(person=><Person person={person} key={i++} />)}
+      <div>
+        filter shown with <input 
+        value={filter}
+        onChange={handleFilterChange}  />
+      </div>
+      <h3>add a new</h3>
+      <PersonForm addPerson={addPerson} newPerson={newPerson} handleNameChange={handleNameChange} handleNumberChnage={handleNumberChnage}/>
+      <h3>Numbers</h3>
+      <DisplayPhonebook persons={persons} filter={filter} />
     </div>
   )
 }
